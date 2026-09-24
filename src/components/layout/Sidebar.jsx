@@ -4,6 +4,9 @@ import {
   BarChart2,
   Package,
   Wifi,
+  Scale,
+  TrendingDown,
+  ShoppingBag,
   RefreshCw,
   MessageSquare,
   FileText,
@@ -12,14 +15,17 @@ import {
 } from 'lucide-react';
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-  { icon: BarChart2, label: 'Analytics', path: '/analytics' },
-  { icon: Package, label: 'Inventory', path: '/inventory' },
-  { icon: Wifi, label: 'Sensors', path: '/sensors' },
-  { icon: RefreshCw, label: 'Redistribution', path: '/redistribution' },
-  { icon: MessageSquare, label: 'Feedback', path: '/feedback' },
-  { icon: FileText, label: 'Reports', path: '/reports' },
-  { icon: Settings, label: 'Settings', path: '/settings' },
+  { icon: LayoutDashboard, label: 'Dashboard',         path: '/' },
+  { icon: BarChart2,       label: 'Analytics',         path: '/analytics' },
+  { icon: Package,         label: 'Inventory',         path: '/inventory' },
+  { icon: Wifi,            label: 'Sensors',           path: '/sensors' },
+  { icon: Scale,           label: 'Weighing Scale',    path: '/weighing-scale' },
+  { icon: TrendingDown,    label: 'Surplus Detection', path: '/surplus-detection' },
+  { icon: ShoppingBag,     label: 'Surplus Market',    path: '/surplus-marketplace' },
+  { icon: RefreshCw,       label: 'Redistribution',    path: '/redistribution' },
+  { icon: MessageSquare,   label: 'Feedback',          path: '/feedback' },
+  { icon: FileText,        label: 'Reports',           path: '/reports' },
+  { icon: Settings,        label: 'Settings',          path: '/settings' },
 ];
 
 export default function Sidebar() {
