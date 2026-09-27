@@ -19,7 +19,7 @@ export default function Redistribution() {
   const totalKg = allRedistributions.reduce((acc, r) => acc + parseInt(r.amount), 0);
 
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
@@ -61,7 +61,7 @@ export default function Redistribution() {
               <tr key={item.org} className="hover:bg-gray-50 transition-colors">
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{item.icon}</span>
+                    {/* <span className="text-lg">{item.icon}</span> */}
                     <span className="text-sm font-medium text-gray-800">{item.org}</span>
                   </div>
                 </td>

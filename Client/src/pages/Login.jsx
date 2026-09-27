@@ -37,7 +37,7 @@ export default function Login() {
   };
 
   const fillDemo = () => {
-    setForm({ email: 'demo@foodloop.com', password: 'demo1234' });
+    setForm({ email: 'test@example.com', password: '123456' });
     setError('');
   };
 

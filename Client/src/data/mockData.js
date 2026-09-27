@@ -70,9 +70,9 @@ export const sensorData = [
 ];
 
 export const redistributionData = [
-  { org: 'Asha Foundation', amount: '12 kg', date: 'Today', icon: '🏠' },
-  { org: 'City Food Bank', amount: '8 kg', date: 'Yesterday', icon: '🏛️' },
-  { org: 'Community Kitchen', amount: '2 kg', date: '12 Sep', icon: '🍳' },
+  { org: 'Asha Foundation', amount: '12 kg', date: 'Today', icon: '' },
+  { org: 'City Food Bank', amount: '8 kg', date: 'Yesterday', icon: '' },
+  { org: 'Community Kitchen', amount: '2 kg', date: '12 Sep', icon: '' },
 ];
 
 export const impactData = [

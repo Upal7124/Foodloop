@@ -11,6 +11,7 @@ const pageTitles = {
   '/weighing-scale': { title: 'Weighing Scale', subtitle: 'Live sensor readings and measurement history' },
   '/surplus-detection': { title: 'Surplus Detection', subtitle: 'Log morning and evening sessions to detect daily surplus' },
   '/surplus-marketplace': { title: 'Surplus Marketplace', subtitle: 'Browse and claim available surplus food listings' },
+  '/ml-intelligence': { title: 'ML Intelligence', subtitle: 'AI model training records, predictions and performance metrics' },
   '/redistribution': { title: 'Redistribution', subtitle: 'Track surplus food distribution to partners' },
   '/feedback': { title: 'Feedback', subtitle: 'View and respond to user feedback' },
   '/reports': { title: 'Reports', subtitle: 'Generate and download detailed reports' },

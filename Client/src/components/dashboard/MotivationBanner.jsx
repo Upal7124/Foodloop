@@ -3,7 +3,7 @@ import { Leaf } from 'lucide-react';
 export default function MotivationBanner() {
   return (
     <div
-      className="rounded-xl p-5 flex flex-col justify-between relative overflow-hidden"
+      className="h-full rounded-xl p-5 flex flex-col justify-between relative overflow-hidden"
       style={{ background: 'linear-gradient(135deg, #14532d 0%, #1a6b3a 60%, #166534 100%)' }}
     >
       {/* Decorative circles */}

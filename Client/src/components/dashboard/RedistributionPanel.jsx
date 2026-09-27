@@ -24,7 +24,6 @@ export default function RedistributionPanel() {
         {redistributionData.map((item) => (
           <div key={item.org} className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-base">{item.icon}</span>
               <span className="text-xs text-gray-700">{item.org}</span>
             </div>
             <div className="flex items-center gap-3">

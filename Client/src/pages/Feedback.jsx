@@ -9,7 +9,7 @@ const feedbacks = [
 
 export default function Feedback() {
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">

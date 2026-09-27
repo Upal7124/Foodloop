@@ -20,7 +20,7 @@ const typeColors = {
 
 export default function Reports() {
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* Header actions */}
       <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm flex items-center justify-between">
         <div>

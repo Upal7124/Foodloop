@@ -3,7 +3,7 @@ import { Wifi } from 'lucide-react';
 
 export default function SensorStatus() {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <div className="h-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">

@@ -16,7 +16,7 @@ export default function ImpactPanel() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <div className="h-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -52,7 +52,7 @@ export default function ImpactPanel() {
         {impactData.map((item) => (
           <div key={item.label} className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-sm">{icons[item.icon]}</span>
+              {/* <span className="text-sm">{icons[item.icon]}</span> */}
               <span className="text-xs text-gray-600">{item.label}</span>
             </div>
             <span className="text-xs font-bold" style={{ color: item.color }}>{item.value}</span>

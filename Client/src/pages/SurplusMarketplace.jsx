@@ -198,7 +198,7 @@ export default function SurplusMarketplace() {
   const totalKg   = listings.filter((l) => l.status === 'available').reduce((s, l) => s + (l.totalSurplus || 0), 0);
 
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* ── Hero banner ── */}
       <div className="bg-gradient-to-r from-green-700 to-teal-600 rounded-xl p-5 text-white">
         <div className="flex items-center justify-between">
@@ -228,7 +228,7 @@ export default function SurplusMarketplace() {
             { icon: '⚖️', label: 'Total Surplus (kg)', value: totalKg.toFixed(1) },
           ].map((s) => (
             <div key={s.label} className="bg-white/15 rounded-xl px-4 py-3">
-              <p className="text-green-100 text-xs mb-1">{s.icon} {s.label}</p>
+              <p className="text-green-100 text-xs mb-1"> {s.label}</p>
               <p className="text-white font-black text-xl">{s.value}</p>
             </div>
           ))}

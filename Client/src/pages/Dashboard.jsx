@@ -11,7 +11,7 @@ import { statCards } from '../data/mockData';
 
 export default function Dashboard() {
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* Stat Cards Row */}
       <div className="grid grid-cols-4 gap-4">
         {statCards.map((card) => (
@@ -26,11 +26,11 @@ export default function Dashboard() {
           <FoodConsumptionChart />
         </div>
         {/* Waste Composition - 3 cols */}
-        <div className="col-span-3">
+        <div className="col-span-3 h-full">
           <WasteCompositionChart />
         </div>
         {/* Sensor Status - 2 cols */}
-        <div className="col-span-2">
+        <div className="col-span-2 h-full">
           <SensorStatus />
         </div>
       </div>
@@ -38,7 +38,7 @@ export default function Dashboard() {
       {/* Middle Row */}
       <div className="grid grid-cols-12 gap-4">
         {/* AI Recommendation - 4 cols */}
-        <div className="col-span-4">
+        <div className=" col-span-4">
           <AIRecommendation />
         </div>
         {/* Redistribution - 4 cols */}

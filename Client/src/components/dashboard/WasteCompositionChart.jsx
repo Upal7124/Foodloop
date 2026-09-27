@@ -17,10 +17,10 @@ export default function WasteCompositionChart() {
   const totalWaste = 18;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <div className="h-full w-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
       <h3 className="text-sm font-semibold text-gray-900 mb-4">Waste Composition</h3>
-
-      <div className="flex items-center gap-4">
+  
+      <div className=" flex items-center justify-center gap-4">
         {/* Donut Chart */}
         <div className="relative flex-shrink-0">
           <ResponsiveContainer width={150} height={150}>

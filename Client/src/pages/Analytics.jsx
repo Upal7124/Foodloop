@@ -13,16 +13,18 @@ const summaryStats = [
 
 export default function Analytics() {
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* Summary stats */}
       <div className="grid grid-cols-4 gap-4">
         {summaryStats.map((s) => (
           <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
             <p className="text-xs text-gray-500 mb-1">{s.label}</p>
+            <div className="grid grid-cols-2 gap-2 items-center justify-between "> 
             <p className="text-2xl font-bold text-gray-900">{s.value}</p>
-            <p className={`text-xs font-semibold mt-1 ${s.positive ? 'text-green-600' : 'text-red-500'}`}>
+            <span className={`text-xs font-semibold mt-1 ${s.positive ? 'text-green-600' : 'text-red-500'}`}>
               {s.change} vs last period
-            </p>
+            </span>
+            </div>
           </div>
         ))}
       </div>

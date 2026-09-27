@@ -1,17 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  BarChart2,
-  Package,
-  Wifi,
-  Scale,
-  TrendingDown,
-  ShoppingBag,
-  RefreshCw,
-  MessageSquare,
-  FileText,
-  Settings,
-  Leaf,
+  LayoutDashboard, BarChart2, Package, Wifi, Scale,
+  TrendingDown, ShoppingBag, RefreshCw, MessageSquare,
+  FileText, Settings, Leaf, Brain,
 } from 'lucide-react';
 
 const navItems = [
@@ -20,8 +11,9 @@ const navItems = [
   { icon: Package,         label: 'Inventory',         path: '/inventory' },
   { icon: Wifi,            label: 'Sensors',           path: '/sensors' },
   { icon: Scale,           label: 'Weighing Scale',    path: '/weighing-scale' },
-  { icon: TrendingDown,    label: 'Surplus Detection', path: '/surplus-detection' },
+  { icon: TrendingDown,    label: 'Surplus Monitor', path: '/surplus-detection' },
   { icon: ShoppingBag,     label: 'Surplus Market',    path: '/surplus-marketplace' },
+  { icon: Brain,           label: 'ML Intelligence',   path: '/ml-intelligence' },
   { icon: RefreshCw,       label: 'Redistribution',    path: '/redistribution' },
   { icon: MessageSquare,   label: 'Feedback',          path: '/feedback' },
   { icon: FileText,        label: 'Reports',           path: '/reports' },

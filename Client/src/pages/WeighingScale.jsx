@@ -217,7 +217,7 @@ function StatCard({ label, value, unit, icon, color, sub }) {
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-lg">{icon}</span>
+        {/* <span className="text-lg">{icon}</span> */}
         <span className="text-xs text-gray-500">{label}</span>
       </div>
       <div className="flex items-end gap-1">
@@ -306,7 +306,7 @@ export default function WeighingScale() {
   const yMax = Math.max(MAX_CAPACITY_KG, ...weights) + 1;
 
   return (
-    <div className="space-y-5">
+    <div className="mt-5 space-y-5">
       {/* ── Connection status bar ── */}
       <div className={`rounded-xl px-4 py-3 flex items-center justify-between text-sm ${isConnected ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
         <div className="flex items-center gap-2.5">

@@ -1,14 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Save, Bell, Shield, Building2, Palette } from 'lucide-react';
 
 export default function Settings() {
   const [restaurant, setRestaurant] = useState('The Green Plate');
   const [email, setEmail] = useState('admin@greenplate.com');
-  const [aiRecommendations, setAiRecommendations] = useState(true);
-  const [sensorAlerts, setSensorAlerts] = useState(true);
+  const [aiRecommendations, setAiRecommendations] = useState(false);
+  const [sensorAlerts, setSensorAlerts] = useState(false);
   const [weeklyReport, setWeeklyReport] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(() => localStorage.getItem('foodloop-theme') || 'light');
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('foodloop-theme', theme);
+
+    let style = document.getElementById('foodloop-dark-mode-styles');
+    if (!style) {
+      style = document.createElement('style');
+      style.id = 'foodloop-dark-mode-styles';
+      style.textContent = `
+        html.dark body { background-color: #111827 !important; color: #f3f4f6 !important; }
+        html.dark .bg-white { background-color: #1f2937 !important; }
+        html.dark .bg-gray-50 { background-color: #111827 !important; }
+        html.dark .bg-gray-100 { background-color: #374151 !important; }
+        html.dark .border-gray-200, html.dark .border-gray-300 { border-color: #374151 !important; }
+        html.dark .text-gray-900, html.dark .text-gray-800 { color: #f9fafb !important; }
+        html.dark .text-gray-700, html.dark .text-gray-600, html.dark .text-gray-500 { color: #d1d5db !important; }
+        html.dark input, html.dark textarea, html.dark select { background-color: #374151 !important; color: #f9fafb !important; border-color: #4b5563 !important; }
+        html.dark .hover\\:bg-gray-50:hover { background-color: #374151 !important; }
+      `;
+      document.head.appendChild(style);
+    }
+  }, [theme]);
 
   const handleSave = () => {
     setSaved(true);
@@ -25,7 +49,7 @@ export default function Settings() {
   );
 
   return (
-    <div className="space-y-5 max-w-2xl">
+    <div className="mt-5 space-y-5 max-w-2xl">
       {/* Restaurant Info */}
       <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
@@ -94,7 +118,7 @@ export default function Settings() {
 
       {/* Save button */}
       <div>
-        <button
+        {/* <button
           onClick={handleSave}
           className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-colors ${
             saved ? 'bg-green-700 text-white' : 'bg-green-600 text-white hover:bg-green-700'
@@ -102,7 +126,7 @@ export default function Settings() {
         >
           <Save size={14} />
           {saved ? 'Saved!' : 'Save Settings'}
-        </button>
+        </button> */}
       </div>
     </div>
   );
