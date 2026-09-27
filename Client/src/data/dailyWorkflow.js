@@ -1,7 +1,7 @@
 /**
  * Daily Workflow Store
  * Manages the end-to-end daily kitchen workflow state:
- * IDLE → PLAN_READY → MORNING_LOCKED → EVENING_LOCKED → LISTED
+ * IDLE -> PLAN_READY -> MORNING_LOCKED -> EVENING_LOCKED -> LISTED
  *
  * In production this would be a real-time state synced via WebSocket/DB.
  */
@@ -41,21 +41,15 @@ export const setWorkflow = (updates) => {
 
 export const getStepIndex = (step) => Object.values(STEPS).indexOf(step);
 
-// ─── Mock API: Generate daily preparation plan ────────────────────────────────
-/**
- * In production: POST https://ml-api.foodloop.internal/plan?date=YYYY-MM-DD
- * Model inputs: historical consumption, day-of-week, season, upcoming events
- * Returns: recommended quantities for each item
- */
 export const mockGeneratePlan = async (onProgress) => {
   const progressSteps = [
-    { pct: 15, msg: 'Connecting to ML endpoint (FastAPI)…' },
-    { pct: 30, msg: 'Loading historical consumption data (last 30 days)…' },
-    { pct: 50, msg: 'Running XGBoost demand forecast…' },
-    { pct: 65, msg: 'Applying day-of-week seasonality adjustment…' },
-    { pct: 80, msg: 'Optimizing for minimum expected waste…' },
-    { pct: 92, msg: 'Generating per-item recommendations…' },
-    { pct: 100, msg: '✅ Preparation plan ready!' },
+    { pct: 15, msg: 'Connecting to ML endpoint...' },
+    { pct: 30, msg: 'Loading historical consumption data...' },
+    { pct: 50, msg: 'Running XGBoost demand forecast...' },
+    { pct: 65, msg: 'Applying day-of-week seasonality adjustment...' },
+    { pct: 80, msg: 'Optimizing for minimum expected waste...' },
+    { pct: 92, msg: 'Generating per-item recommendations...' },
+    { pct: 100, msg: 'Preparation plan ready!' },
   ];
 
   for (const step of progressSteps) {
@@ -69,12 +63,12 @@ export const mockGeneratePlan = async (onProgress) => {
   const jitter = () => (Math.random() - 0.5) * 0.12;
 
   const items = [
-    { name: 'Basmati Rice',    category: 'Rice / Grains',  qty: Math.round(25 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Primary staple — high consistent demand' },
-    { name: 'Dal Tadka',       category: 'Pulses',         qty: Math.round(18 * scale * (1 + jitter())), unit: 'kg',  rationale: '↑ 8% vs last week (new menu item)' },
-    { name: 'Chapati',         category: 'Bread / Bakery', qty: Math.round(280 * scale * (1 + jitter())), unit: 'pcs', rationale: 'Reduced 12% to cut last-week surplus' },
-    { name: 'Mixed Vegetables',category: 'Vegetables',     qty: Math.round(14 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Seasonal adjustment (monsoon)' },
-    { name: 'Curd',            category: 'Meat / Dairy',   qty: Math.round(7 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Steady demand, weekend dip applied' },
-    { name: 'Khichdi',         category: 'Rice / Grains',  qty: Math.round(12 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Alternate carb option' },
+    { name: 'Steamed Rice',    category: 'Rice / Grains',  qty: Math.round(25 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Primary staple, consistent demand' },
+    { name: 'Dal Tadka',       category: 'Pulses',         qty: Math.round(18 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Increased 8% vs last week' },
+    { name: 'Wheat Chapati',   category: 'Bread / Bakery', qty: Math.round(280 * scale * (1 + jitter())), unit: 'pcs', rationale: 'Reduced 12% to cut last-week surplus' },
+    { name: 'Mixed Veg Curry', category: 'Vegetables',     qty: Math.round(14 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Seasonal adjustment' },
+    { name: 'Curd',            category: 'Dairy',          qty: Math.round(7 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Steady demand, weekend dip applied' },
+    { name: 'Vegetable Khichdi',category: 'Rice / Grains', qty: Math.round(12 * scale * (1 + jitter())), unit: 'kg',  rationale: 'Alternate carb option' },
   ];
 
   return {

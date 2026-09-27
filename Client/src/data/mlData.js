@@ -1,10 +1,8 @@
 // ML Model Data Store
-// Simulates what would be an API layer talking to a deployed ML service (e.g. FastAPI + scikit-learn / TensorFlow Serving)
 
 const ML_TRAINING_KEY = 'foodloop_ml_training_runs';
 const ML_PREDICTIONS_KEY = 'foodloop_ml_predictions';
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 export const getTrainingRuns = () => {
   try { return JSON.parse(localStorage.getItem(ML_TRAINING_KEY)) || []; }
   catch { return []; }
@@ -25,12 +23,10 @@ export const savePrediction = (pred) => {
   localStorage.setItem(ML_PREDICTIONS_KEY, JSON.stringify(all.slice(0, 60)));
 };
 
-// ─── Seed historical training runs (last 14 days) ─────────────────────────────
 export const seedMLData = () => {
-  if (getTrainingRuns().length > 0) return;
-
+  // Overwriting for data harmonization
   const now = Date.now();
-  const ITEMS = ['Basmati Rice', 'Dal Tadka', 'Chapati', 'Mixed Vegetables', 'Chicken Curry', 'Khichdi'];
+  const ITEMS = ['Steamed Rice', 'Dal Tadka', 'Wheat Chapati', 'Mixed Veg Curry', 'Vegetable Khichdi'];
 
   const runs = Array.from({ length: 14 }, (_, i) => {
     const day = new Date(now - (14 - i) * 86400000);
@@ -55,7 +51,6 @@ export const seedMLData = () => {
 
   localStorage.setItem(ML_TRAINING_KEY, JSON.stringify(runs));
 
-  // Also seed predictions
   const predictions = Array.from({ length: 21 }, (_, i) => {
     const day = new Date(now - (21 - i) * 86400000);
     const base = 450 + Math.sin(i * 0.8) * 40;
@@ -67,7 +62,7 @@ export const seedMLData = () => {
       type: 'meals',
       label: 'Total Meals',
       predicted,
-      actual: i < 20 ? actual : null, // latest has no actual yet
+      actual: i < 20 ? actual : null,
       unit: 'meals',
       confidence: +(82 + Math.random() * 12).toFixed(1),
       modelVersion: `v1.${Math.min(i + 1, 14)}`,
@@ -94,21 +89,15 @@ export const seedMLData = () => {
   localStorage.setItem(ML_PREDICTIONS_KEY, JSON.stringify([...predictions, ...wastePredictions]));
 };
 
-// ─── Mock API calls (simulates fetch to remote ML service) ───────────────────
-
-/**
- * Simulate POST /api/ml/train
- * In production: fetch('https://ml.foodloop.app/train', { method: 'POST', body: JSON.stringify(payload) })
- */
 export const mockTrainAPI = async (payload, onProgress) => {
   const steps = [
-    { pct: 10, msg: 'Connecting to ML endpoint…' },
-    { pct: 25, msg: 'Serializing training payload…' },
-    { pct: 40, msg: 'Uploading data to model server…' },
-    { pct: 55, msg: 'Preprocessing features…' },
-    { pct: 70, msg: 'Running gradient descent (epoch 1–50)…' },
-    { pct: 85, msg: 'Validating on holdout set…' },
-    { pct: 95, msg: 'Saving model weights…' },
+    { pct: 10, msg: 'Connecting to ML endpoint...' },
+    { pct: 25, msg: 'Serializing training payload...' },
+    { pct: 40, msg: 'Uploading data to model server...' },
+    { pct: 55, msg: 'Preprocessing features...' },
+    { pct: 70, msg: 'Running gradient descent (epoch 1-50)...' },
+    { pct: 85, msg: 'Validating on holdout set...' },
+    { pct: 95, msg: 'Saving model weights...' },
     { pct: 100, msg: 'Training complete!' },
   ];
   for (const step of steps) {
@@ -133,10 +122,6 @@ export const mockTrainAPI = async (payload, onProgress) => {
   };
 };
 
-/**
- * Simulate POST /api/ml/predict
- * In production: fetch('https://ml.foodloop.app/predict', { method: 'POST', body: JSON.stringify({ date }) })
- */
 export const mockPredictAPI = async (targetDate) => {
   await new Promise((r) => setTimeout(r, 1200 + Math.random() * 800));
   const runs = getTrainingRuns();
@@ -149,7 +134,7 @@ export const mockPredictAPI = async (targetDate) => {
       { type: 'meals',   label: 'Total Meals',   predicted: Math.round(430 + Math.random() * 80), unit: 'meals', confidence: +(80 + Math.random() * 15).toFixed(1), lower: 400, upper: 520 },
       { type: 'waste',   label: 'Food Waste',    predicted: +(4 + Math.random() * 5).toFixed(2),   unit: 'kg',   confidence: +(75 + Math.random() * 18).toFixed(1), lower: 2.0, upper: 12.0 },
       { type: 'surplus', label: 'Surplus Food',  predicted: +(3 + Math.random() * 6).toFixed(2),   unit: 'kg',   confidence: +(70 + Math.random() * 20).toFixed(1), lower: 1.0, upper: 10.0 },
-      { type: 'cost',    label: 'Est. Food Cost', predicted: Math.round(8000 + Math.random() * 4000), unit: '₹', confidence: +(78 + Math.random() * 15).toFixed(1), lower: 7000, upper: 15000 },
+      { type: 'cost',    label: 'Est. Food Cost', predicted: Math.round(8000 + Math.random() * 4000), unit: 'INR', confidence: +(78 + Math.random() * 15).toFixed(1), lower: 7000, upper: 15000 },
     ],
   };
 };

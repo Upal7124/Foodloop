@@ -3,6 +3,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Leaf, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
+const getRoleDashboard = (role) => {
+  if (role === 'ngo') return '/ngo-dashboard';
+  if (role === 'agent') return '/rider-dashboard';
+  if (role === 'kitchen') return '/kitchen-dashboard';
+  return '/';
+};
+
 export default function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -27,10 +34,11 @@ export default function Login() {
     }
     setLoading(true);
     await new Promise((r) => setTimeout(r, 600));
-    const result = login(form);
+    const result = await login(form);
     setLoading(false);
     if (result.success) {
-      navigate(from, { replace: true });
+      const destination = from === '/' ? getRoleDashboard(result.user?.role) : from;
+      navigate(destination, { replace: true });
     } else {
       setError(result.message);
     }

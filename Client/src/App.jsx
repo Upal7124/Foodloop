@@ -4,11 +4,12 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Sidebar from './components/layout/Sidebar';
 import Topbar from './components/layout/Topbar';
 
-// Auth pages (public)
+// Auth / public pages
+import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 
-// App pages (protected)
+// Kitchen pages
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Inventory from './pages/Inventory';
@@ -22,7 +23,18 @@ import Feedback from './pages/Feedback';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
 
-// Layout wrapper for authenticated pages
+// Role dashboards
+import NGODashboard from './pages/NGODashboard';
+import RiderDashboard from './pages/RiderDashboard';
+
+// Helper — returns home path for each role
+const getRoleDashboard = (role) => {
+  if (role === 'ngo') return '/ngo-dashboard';
+  if (role === 'agent') return '/rider-dashboard';
+  return '/dashboard';
+};
+
+// Authenticated app shell (sidebar + topbar + outlet)
 function AppLayout() {
   return (
     <div className="min-h-screen bg-gray-100 flex">
@@ -31,7 +43,8 @@ function AppLayout() {
         <Topbar />
         <main className="flex-1 pt-16 p-6 overflow-auto">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            {/* Kitchen routes */}
+            <Route path="/kitchen-dashboard" element={<Dashboard />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/sensors" element={<Sensors />} />
@@ -43,8 +56,11 @@ function AppLayout() {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/settings" element={<Settings />} />
-            {/* Catch-all inside app */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            {/* Role dashboards */}
+            <Route path="/ngo-dashboard" element={<NGODashboard />} />
+            <Route path="/rider-dashboard" element={<RiderDashboard />} />
+            {/* Catch-all inside app — send to role home */}
+            <Route path="*" element={<RoleRedirect />} />
           </Routes>
         </main>
       </div>
@@ -52,47 +68,50 @@ function AppLayout() {
   );
 }
 
-// Public-only route: redirect to dashboard if already logged in
-function PublicRoute({ children }) {
-  const { isAuthenticated, loading } = useAuth();
-  if (loading) return null;
-  return isAuthenticated ? <Navigate to="/" replace /> : children;
+// Redirects to the right dashboard based on role
+function RoleRedirect() {
+  const { user } = useAuth();
+  return <Navigate to={getRoleDashboard(user?.role)} replace />;
 }
+
+// Public-only: redirect authenticated users to their dashboard
+function PublicRoute({ children }) {
+  const { isAuthenticated, loading, user } = useAuth();
+  if (loading) return null;
+  if (isAuthenticated) return <Navigate to={getRoleDashboard(user?.role)} replace />;
+  return children;
+}
+
+export { getRoleDashboard };
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
-          {/* Public routes */}
-          <Route
-            path="/login"
-            element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <PublicRoute>
-                <Signup />
-              </PublicRoute>
-            }
-          />
-
-          {/* Protected routes — all app pages */}
-          <Route
-            path="/*"
-            element={
-              // <ProtectedRoute>
-                <AppLayout />
-              // </ProtectedRoute> 
-            }
-          />
+          {/* Public landing page */}
+          <Route path="/" element={
+            <PublicRoute>
+              <Landing />
+            </PublicRoute>
+          } />
+          {/* Auth pages */}
+          <Route path="/login" element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } />
+          <Route path="/signup" element={
+            <PublicRoute>
+              <Signup />
+            </PublicRoute>
+          } />
+          {/* All authenticated pages under AppLayout */}
+          <Route >
+            <Route path="/*" element={<AppLayout />} />
+          </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }

@@ -4,7 +4,9 @@ import { Building2, ChevronDown, Bell, LogOut, UserCircle, HelpCircle } from 'lu
 import { useAuth } from '../../context/AuthContext';
 
 const pageTitles = {
-  '/': { title: 'Dashboard', subtitle: 'Overview of food production, waste and impact' },
+  '/kitchen-dashboard': { title: 'Kitchen Dashboard', subtitle: 'Overview of food production, waste and impact' },
+  '/ngo-dashboard': { title: 'NGO Dashboard', subtitle: 'Browse surplus listings and manage your claims' },
+  '/rider-dashboard': { title: 'Rider Dashboard', subtitle: 'Track deliveries, pickups and earnings' },
   '/analytics': { title: 'Analytics', subtitle: 'Deep dive into your food data trends' },
   '/inventory': { title: 'Inventory', subtitle: 'Manage and track your food stock' },
   '/sensors': { title: 'Sensors', subtitle: 'Real-time sensor monitoring and alerts' },

@@ -56,8 +56,8 @@ export const consumptionData = [
 export const wasteCompositionData = [
   { name: 'Rice / Grains', value: 35, color: '#22c55e' },
   { name: 'Vegetables', value: 25, color: '#3b82f6' },
-  { name: 'Bread', value: 15, color: '#f59e0b' },
-  { name: 'Meat / Dairy', value: 15, color: '#f97316' },
+  { name: 'Bread / Bakery', value: 15, color: '#f59e0b' },
+  { name: 'Dairy', value: 15, color: '#f97316' },
   { name: 'Others', value: 10, color: '#8b5cf6' },
 ];
 
@@ -71,8 +71,8 @@ export const sensorData = [
 
 export const redistributionData = [
   { org: 'Asha Foundation', amount: '12 kg', date: 'Today', icon: '' },
-  { org: 'City Food Bank', amount: '8 kg', date: 'Yesterday', icon: '' },
-  { org: 'Community Kitchen', amount: '2 kg', date: '12 Sep', icon: '' },
+  { org: 'Care & Share Trust', amount: '8 kg', date: 'Yesterday', icon: '' },
+  { org: 'Food For All', amount: '2 kg', date: '12 Sep', icon: '' },
 ];
 
 export const impactData = [
@@ -83,7 +83,7 @@ export const impactData = [
 ];
 
 export const recentActivities = [
-  { time: '10:30 AM', activity: 'Food Prepared', details: '25 kg Rice', status: 'Logged' },
+  { time: '10:30 AM', activity: 'Food Prepared', details: '25 kg Steamed Rice', status: 'Logged' },
   { time: '12:15 PM', activity: 'Waste Recorded', details: '2.3 kg (Vegetables)', status: 'Logged' },
   { time: '02:40 PM', activity: 'Surplus Collected', details: '8 kg to Asha Foundation', status: 'Completed' },
   { time: '05:10 PM', activity: 'Sensor Alert', details: 'Fridge temperature back to normal', status: 'Resolved' },
@@ -102,12 +102,12 @@ export const analyticsMonthlyData = [
 ];
 
 export const inventoryData = [
-  { id: 1, item: 'Rice', category: 'Grains', quantity: '150 kg', expiry: '2026-10-15', status: 'Good' },
-  { id: 2, item: 'Wheat Flour', category: 'Grains', quantity: '80 kg', expiry: '2026-10-01', status: 'Good' },
+  { id: 1, item: 'Steamed Rice', category: 'Rice / Grains', quantity: '150 kg', expiry: '2026-10-15', status: 'Good' },
+  { id: 2, item: 'Wheat Chapati', category: 'Bread / Bakery', quantity: '80 pcs', expiry: '2026-10-01', status: 'Good' },
   { id: 3, item: 'Tomatoes', category: 'Vegetables', quantity: '25 kg', expiry: '2026-09-25', status: 'Expiring Soon' },
   { id: 4, item: 'Spinach', category: 'Vegetables', quantity: '8 kg', expiry: '2026-09-22', status: 'Critical' },
-  { id: 5, item: 'Chicken', category: 'Meat', quantity: '40 kg', expiry: '2026-09-23', status: 'Critical' },
-  { id: 6, item: 'Milk', category: 'Dairy', quantity: '60 L', expiry: '2026-09-24', status: 'Expiring Soon' },
-  { id: 7, item: 'Bread', category: 'Bakery', quantity: '30 pcs', expiry: '2026-09-22', status: 'Critical' },
-  { id: 8, item: 'Lentils', category: 'Legumes', quantity: '100 kg', expiry: '2026-12-01', status: 'Good' },
+  { id: 5, item: 'Mixed Veg Curry', category: 'Vegetables', quantity: '10 kg', expiry: '2026-09-23', status: 'Critical' },
+  { id: 6, item: 'Curd', category: 'Dairy', quantity: '60 kg', expiry: '2026-09-24', status: 'Expiring Soon' },
+  { id: 7, item: 'Vegetable Khichdi', category: 'Rice / Grains', quantity: '30 kg', expiry: '2026-09-22', status: 'Critical' },
+  { id: 8, item: 'Dal Tadka', category: 'Pulses', quantity: '100 kg', expiry: '2026-12-01', status: 'Good' },
 ];
