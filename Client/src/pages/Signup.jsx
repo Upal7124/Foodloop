@@ -28,30 +28,24 @@ const passwordRules = [
 const ROLES = [
   {
     key: "kitchen",
-    icon: "🍽️",
+    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-zLY2VD08yL17Pnh82JRmV4hS5NGF667okawfgNTz9Q&s=10",
     title: "Institutional Kitchen",
     desc: "Hospitals, schools, corporates, or any large kitchen that cooks daily at scale.",
     color: "#16a34a",
-    bg: "#f0fdf4",
-    border: "#bbf7d0",
   },
   {
     key: "ngo",
-    icon: "🤝",
+    icon: "https://static.vecteezy.com/system/resources/previews/022/988/656/non_2x/ngo-icon-vector.jpg",
     title: "NGO / Charity",
     desc: "Organisations that receive and redistribute surplus food to those in need.",
-    color: "#1e6fba",
-    bg: "#eff6ff",
-    border: "#bfdbfe",
+    color: "#16a34a",
   },
   {
     key: "agent",
-    icon: "🚚",
+    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMx6swun-edqDz0YCASSxAaRXOBNgwK298iRtFECkP5l6kcj1lEZe0V38&s=10",
     title: "Delivery Agent",
     desc: "Individuals or fleets that transport surplus food from kitchens to NGOs.",
-    color: "#7c3aed",
-    bg: "#faf5ff",
-    border: "#ddd6fe",
+    color: "#16a34a",
   },
 ];
 
@@ -193,7 +187,7 @@ export default function Signup() {
                   className="w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all hover:shadow-md"
                   style={{ borderColor: r.border, backgroundColor: r.bg }}
                 >
-                  <span className="text-3xl flex-shrink-0">{r.icon}</span>
+                  <img src={r.icon} alt={r.title} className="w-12 h-12 flex-shrink-0" />
                   <div className="flex-1">
                     <p className="text-sm font-bold" style={{ color: r.color }}>
                       {r.title}
@@ -278,7 +272,7 @@ export default function Signup() {
             </div>
           </div>
 
-          <div className="text-4xl mb-3">{activeRole?.icon}</div>
+          {/* <div className="text-4xl mb-3">{activeRole?.icon}</div> */}
           <h2 className="text-white text-3xl font-bold mb-2">
             {activeRole?.title}
           </h2>
@@ -319,7 +313,7 @@ export default function Signup() {
 
           {/* Role tag */}
           <div className="flex items-center gap-2 mb-5">
-            <span className="text-sm">{activeRole?.icon}</span>
+            {/* <span className="text-sm">{activeRole?.icon}</span> */}
             <span
               className="text-xs font-semibold px-2.5 py-1 rounded-full"
               style={{
