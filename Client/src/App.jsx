@@ -50,10 +50,7 @@ function AppLayout() {
             <Route path="/sensors" element={<Sensors />} />
             <Route path="/weighing-scale" element={<WeighingScale />} />
             <Route path="/surplus-detection" element={<SurplusDetection />} />
-            <Route
-              path="/surplus-marketplace"
-              element={<SurplusMarketplace />}
-            />
+            <Route path="/surplus-marketplace" element={<SurplusMarketplace />}/>
             <Route path="/ml-intelligence" element={<MLIntelligence />} />
             <Route path="/redistribution" element={<Redistribution />} />
             <Route path="/feedback" element={<Feedback />} />
@@ -121,7 +118,7 @@ export default function App() {
           />
           {/* All authenticated pages under AppLayout */}
           <Route>
-            <Route path="/*" element={<AppLayout />} />
+            <Route path="/*" element={<ProtectedRoute><AppLayout /></ProtectedRoute>} />
           </Route>
         </Routes>
       </AuthProvider>
