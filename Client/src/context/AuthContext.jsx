@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
   // Returns { success, userId } so Step 2 can save kitchen profile
   const signup = async ({ name, email, password, restaurant, role }) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch("https://foodloop-backend-17zr.onrender.com/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ export function AuthProvider({ children }) {
   // --- Save kitchen profile (Step 2) ---
   const saveKitchenProfile = async (userId, profileData) => {
     try {
-      const response = await fetch("http://localhost:5000/api/kitchen", {
+      const response = await fetch("https://foodloop-backend-17zr.onrender.com/api/kitchen", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ export function AuthProvider({ children }) {
   // --- Login ---
   const login = async ({ email, password }) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://foodloop-backend-17zr.onrender.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -172,7 +172,7 @@ export function AuthProvider({ children }) {
   };
   const getKitchenProfile = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/kitchen", {
+      const response = await fetch("https://foodloop-backend-17zr.onrender.com/api/kitchen", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
