@@ -1,22 +1,39 @@
-import { useState } from 'react';
-import { inventoryData } from '../data/mockData';
-import { Package, Search, Filter } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { apiFetch } from "../utils/api";
+import { Package, Search, Filter } from "lucide-react";
 
 const statusColors = {
-  Good: 'bg-green-50 text-green-600',
-  'Expiring Soon': 'bg-amber-50 text-amber-600',
-  Critical: 'bg-red-50 text-red-500',
+  Good: "bg-green-50 text-green-600",
+  "Expiring Soon": "bg-amber-50 text-amber-600",
+  Critical: "bg-red-50 text-red-500",
 };
 
 export default function Inventory() {
-  const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('All');
+  const [inventory, setInventory] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
 
-  const categories = ['All', ...new Set(inventoryData.map((i) => i.category))];
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await apiFetch("/api/inventory");
+        const data = await response.json();
 
-  const filtered = inventoryData.filter((item) => {
+        if (data.success) {
+          setInventory(data.items);
+        }
+      } catch (error) {
+        console.error("Failed to fetch inventory:", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
+  const categories = ["All", ...new Set(inventory.map((i) => i.category))];
+
+  const filtered = inventory.filter((item) => {
     const matchSearch = item.item.toLowerCase().includes(search.toLowerCase());
-    const matchCat = filter === 'All' || item.category === filter;
+    const matchCat = filter === "All" || item.category === filter;
     return matchSearch && matchCat;
   });
 
@@ -25,11 +42,26 @@ export default function Inventory() {
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
         {[
-          { label: 'Total Items', value: inventoryData.length, color: 'text-gray-900' },
-          { label: 'Expiring Soon', value: inventoryData.filter(i => i.status === 'Expiring Soon').length, color: 'text-amber-600' },
-          { label: 'Critical', value: inventoryData.filter(i => i.status === 'Critical').length, color: 'text-red-500' },
+          {
+            label: "Total Items",
+            value: inventory.length,
+            color: "text-gray-900",
+          },
+          {
+            label: "Expiring Soon",
+            value: inventory.filter((i) => i.status === "Expiring Soon").length,
+            color: "text-amber-600",
+          },
+          {
+            label: "Critical",
+            value: inventory.filter((i) => i.status === "Critical").length,
+            color: "text-red-500",
+          },
         ].map((s) => (
-          <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+          <div
+            key={s.label}
+            className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm"
+          >
             <p className="text-xs text-gray-500">{s.label}</p>
             <p className={`text-3xl font-bold mt-1 ${s.color}`}>{s.value}</p>
           </div>
@@ -41,7 +73,10 @@ export default function Inventory() {
         {/* Toolbar */}
         <div className="flex items-center gap-3 p-4 border-b border-gray-100">
           <div className="relative flex-1 max-w-sm">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            <Search
+              size={14}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            />
             <input
               type="text"
               placeholder="Search items..."
@@ -73,20 +108,40 @@ export default function Inventory() {
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                {['Item', 'Category', 'Quantity', 'Expiry Date', 'Status'].map((h) => (
-                  <th key={h} className="text-left text-xs font-medium text-gray-500 px-4 py-3">{h}</th>
-                ))}
+                {["Item", "Category", "Quantity", "Expiry Date", "Status"].map(
+                  (h) => (
+                    <th
+                      key={h}
+                      className="text-left text-xs font-medium text-gray-500 px-4 py-3"
+                    >
+                      {h}
+                    </th>
+                  ),
+                )}
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-4 py-3 text-sm font-medium text-gray-800">{item.item}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{item.category}</td>
-                  <td className="px-4 py-3 text-sm text-gray-700">{item.quantity}</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">{item.expiry}</td>
+                <tr
+                  key={item.id}
+                  className="hover:bg-gray-50 transition-colors"
+                >
+                  <td className="px-4 py-3 text-sm font-medium text-gray-800">
+                    {item.item}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-600">
+                    {item.category}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-700">
+                    {item.quantity}
+                  </td>
+                  <td className="px-4 py-3 text-sm text-gray-600">
+                    {item.expiry}
+                  </td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[item.status]}`}>
+                    <span
+                      className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[item.status]}`}
+                    >
                       {item.status}
                     </span>
                   </td>

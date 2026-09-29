@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import KitchenProfileStep from "../components/auth/KitchenProfileStep";
-import NGOProfileStep from "../components/auth/NGOProfileStep";
-import DeliveryAgentStep from "../components/auth/DeliveryAgentStep";
+//import DeliveryAgentStep from "../components/auth/DeliveryAgentStep";
 
 // ── Password rules ───────────────────────────────────────────────────────────
 const passwordRules = [
@@ -107,8 +106,16 @@ export default function Signup() {
     setLoading(false);
     if (result.success) {
       setPendingUser(result.user);
-      setStep(2);
-    } else setError(result.message);
+
+      if (role?.key === "kitchen") {
+        setStep(2);
+      } else {
+        completeRegistration(result.user);
+        navigate("/", { replace: true });
+      }
+    } else {
+      setError(result.message);
+    }
   };
 
   // ── Step 2 handlers ───────────────────────────────────────────────────────
@@ -127,22 +134,6 @@ export default function Signup() {
 
   // ── Render Step 2 ─────────────────────────────────────────────────────────
   if (step === 2) {
-    if (role?.key === "ngo")
-      return (
-        <NGOProfileStep
-          pendingUser={pendingUser}
-          onComplete={handleProfileComplete}
-          onSkip={handleProfileSkip}
-        />
-      );
-    if (role?.key === "agent")
-      return (
-        <DeliveryAgentStep
-          pendingUser={pendingUser}
-          onComplete={handleProfileComplete}
-          onSkip={handleProfileSkip}
-        />
-      );
     return (
       <KitchenProfileStep
         pendingUser={pendingUser}
@@ -187,7 +178,11 @@ export default function Signup() {
                   className="w-full flex items-center gap-4 p-4 rounded-xl border-2 text-left transition-all hover:shadow-md"
                   style={{ borderColor: r.border, backgroundColor: r.bg }}
                 >
-                  <img src={r.icon} alt={r.title} className="w-12 h-12 flex-shrink-0" />
+                  <img
+                    src={r.icon}
+                    alt={r.title}
+                    className="w-12 h-12 flex-shrink-0"
+                  />
                   <div className="flex-1">
                     <p className="text-sm font-bold" style={{ color: r.color }}>
                       {r.title}
