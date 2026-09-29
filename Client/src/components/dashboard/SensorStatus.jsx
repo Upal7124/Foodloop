@@ -1,7 +1,6 @@
-import { sensorData } from '../../data/mockData';
 import { Wifi } from 'lucide-react';
 
-export default function SensorStatus() {
+export default function SensorStatus({ data = [] }) {
   return (
     <div className="h-full bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
       {/* Header */}
@@ -15,7 +14,7 @@ export default function SensorStatus() {
 
       {/* Sensor list */}
       <div className="space-y-3">
-        {sensorData.map((sensor) => (
+        {data.map((sensor) => (
           <div key={sensor.name} className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-8 rounded-full bg-green-100 flex-shrink-0"></div>

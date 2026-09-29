@@ -3,6 +3,7 @@ const protect = require("../middleware/authMiddleware");
 const Inventory = require("../models/Inventory");
 const SurplusListing = require("../models/SurplusListing");
 const SurplusSession = require("../models/SurplusSession");
+const Sensor = require("../models/Sensor");
 
 const router = express.Router();
 
@@ -50,7 +51,9 @@ router.get("/stats", protect, async (req, res) => {
     const sessions = await SurplusSession.find({
       user: req.user.userId,
     });
-
+    const sensors = await Sensor.find({
+      user: req.user.userId,
+    });
     let foodPrepared = 0;
 
     sessions.forEach((session) => {
@@ -80,6 +83,7 @@ router.get("/stats", protect, async (req, res) => {
         inventoryItems: inventoryCount,
         consumption,
         wasteComposition,
+        sensors,
       },
     });
   } catch (error) {

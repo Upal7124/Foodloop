@@ -1,18 +1,10 @@
-import { useState } from 'react';
-import { impactData } from '../../data/mockData';
-import { Leaf } from 'lucide-react';
+import { useState } from "react";
+import { Leaf, Utensils, Droplets, Zap, Sprout } from "lucide-react";
 
-const ranges = ['This Month', 'Last Month', 'Last 3 Months'];
+const ranges = ["This Month", "Last Month", "Last 3 Months"];
 
-const icons = {
-  food: '🍽️',
-  water: '💧',
-  energy: '⚡',
-  leaf: '🌱',
-};
-
-export default function ImpactPanel() {
-  const [range, setRange] = useState('This Month');
+export default function ImpactPanel({ data = [] }) {
+  const [range, setRange] = useState("This Month");
   const [open, setOpen] = useState(false);
 
   return (
@@ -36,7 +28,10 @@ export default function ImpactPanel() {
               {ranges.map((r) => (
                 <button
                   key={r}
-                  onClick={() => { setRange(r); setOpen(false); }}
+                  onClick={() => {
+                    setRange(r);
+                    setOpen(false);
+                  }}
                   className="w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50"
                 >
                   {r}
@@ -49,13 +44,22 @@ export default function ImpactPanel() {
 
       {/* Impact metrics */}
       <div className="space-y-3">
-        {impactData.map((item) => (
+        {data.map((item) => (
           <div key={item.label} className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               {/* <span className="text-sm">{icons[item.icon]}</span> */}
+              <span className="text-sm">
+                {item.icon === "food" && <Utensils size={15} />}
+                {item.icon === "water" && <Droplets size={15} />}
+                {item.icon === "energy" && <Zap size={15} />}
+                {item.icon === "leaf" && <Sprout size={15} />}
+              </span>
+
               <span className="text-xs text-gray-600">{item.label}</span>
             </div>
-            <span className="text-xs font-bold" style={{ color: item.color }}>{item.value}</span>
+            <span className="text-xs font-bold" style={{ color: item.color }}>
+              {item.value}
+            </span>
           </div>
         ))}
       </div>

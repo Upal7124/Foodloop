@@ -82,7 +82,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-12 gap-4">
         {/* AI Recommendation - 4 cols */}
         <div className=" col-span-4">
-          <AIRecommendation data={dashboardData?.recommendations || []} />
+          <AIRecommendation data={dashboardData?.recommendation || null} />
         </div>
         {/* Redistribution - 4 cols */}
         <div className="col-span-4">

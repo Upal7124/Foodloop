@@ -5,9 +5,6 @@ const sensorRoutes = require("./routes/sensorRoutes");
 const surplusRoutes = require("./routes/surplusRoute");
 const surplusListingRoutes = require("./routes/surplusListingRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
-const dns = require("dns");
-
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const express = require("express");
 const cors = require("cors");

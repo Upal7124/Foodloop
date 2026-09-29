@@ -1,4 +1,4 @@
-const API_URL = "https://foodloop-backend-17zr.onrender.com/";
+const API_URL = "https://foodloop-backend-17zr.onrender.com";
 
 export const apiFetch = async (endpoint, options = {}) => {
   const token = localStorage.getItem("token");
