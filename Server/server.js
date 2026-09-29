@@ -1,7 +1,10 @@
 const authRoutes = require("./routes/authRoutes");
-const protect = require("./middleware/authMiddleware");
 const kitchenRoutes = require("./routes/kitchenRoutes");
-
+const inventoryRoutes = require("./routes/inventoryRoutes");
+const sensorRoutes = require("./routes/sensorRoutes");
+const surplusRoutes = require("./routes/surplusRoute");
+const surplusListingRoutes = require("./routes/surplusListingRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
 const dns = require("dns");
 
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -27,6 +30,11 @@ mongoose
 
 app.use("/api/auth", authRoutes);
 app.use("/api/kitchen", kitchenRoutes);
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/sensors", sensorRoutes);
+app.use("/api/surplus", surplusRoutes);
+app.use("/api/surplus-listings", surplusListingRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
   res.json({

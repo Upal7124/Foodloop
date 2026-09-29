@@ -1,16 +1,27 @@
-import { sensorData } from '../data/mockData';
-import { Wifi, AlertTriangle, CheckCircle } from 'lucide-react';
-
-const extendedSensors = [
-  ...sensorData,
-  { name: 'Outdoor Temp', value: '32.1 °C', status: 'Online' },
-  { name: 'Water Meter', value: '340 L', status: 'Online' },
-  { name: 'CO₂ Sensor', value: '412 ppm', status: 'Offline' },
-];
+import { useEffect, useState } from "react";
+import { apiFetch } from "../utils/api";
+import { Wifi, AlertTriangle, CheckCircle } from "lucide-react";
 
 export default function Sensors() {
-  const online = extendedSensors.filter((s) => s.status === 'Online').length;
-  const offline = extendedSensors.filter((s) => s.status === 'Offline').length;
+  const [sensors, setSensors] = useState([]);
+  useEffect(() => {
+    const fetchSensors = async () => {
+      try {
+        const response = await apiFetch("/api/sensors");
+        const data = await response.json();
+
+        if (data.success) {
+          setSensors(data.sensors);
+        }
+      } catch (error) {
+        console.error("Failed to fetch sensors:", error);
+      }
+    };
+
+    fetchSensors();
+  }, []);
+  const online = sensors.filter((s) => s.status === "Online").length;
+  const offline = sensors.filter((s) => s.status === 'Offline').length;
 
   return (
     <div className="mt-5 space-y-5">
@@ -18,7 +29,9 @@ export default function Sensors() {
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
           <p className="text-xs text-gray-500">Total Sensors</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">{extendedSensors.length}</p>
+          <p className="text-3xl font-bold text-gray-900 mt-1">
+            {sensors.length}
+          </p>
         </div>
         <div className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
           <div className="flex items-center gap-2">
@@ -38,16 +51,32 @@ export default function Sensors() {
 
       {/* Sensor cards grid */}
       <div className="grid grid-cols-3 gap-4">
-        {extendedSensors.map((sensor) => (
-          <div key={sensor.name} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
+        {sensors.map((sensor) => (
+          <div
+            key={sensor.name}
+            className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <Wifi size={14} className={sensor.status === 'Online' ? 'text-green-500' : 'text-gray-300'} />
-                <span className="text-xs font-medium text-gray-700">{sensor.name}</span>
+                <Wifi
+                  size={14}
+                  className={
+                    sensor.status === "Online"
+                      ? "text-green-500"
+                      : "text-gray-300"
+                  }
+                />
+                <span className="text-xs font-medium text-gray-700">
+                  {sensor.name}
+                </span>
               </div>
-              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                sensor.status === 'Online' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-500'
-              }`}>
+              <span
+                className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                  sensor.status === "Online"
+                    ? "bg-green-50 text-green-600"
+                    : "bg-red-50 text-red-500"
+                }`}
+              >
                 {sensor.status}
               </span>
             </div>

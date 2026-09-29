@@ -170,6 +170,33 @@ export function AuthProvider({ children }) {
     setUser(null);
     setKitchenProfile(null);
   };
+  const getKitchenProfile = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/kitchen", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { success: false, message: data.message };
+      }
+
+      return {
+        success: true,
+        profile: data.profile,
+      };
+    } catch (error) {
+      console.error("Kitchen profile error:", error);
+
+      return {
+        success: false,
+        message: "Unable to fetch kitchen profile.",
+      };
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -180,6 +207,7 @@ export function AuthProvider({ children }) {
         signup,
         completeRegistration,
         saveKitchenProfile,
+        getKitchenProfile,
         kitchenProfile,
         isAuthenticated: !!user,
       }}

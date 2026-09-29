@@ -1,37 +1,37 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './context/AuthContext';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import Sidebar from './components/layout/Sidebar';
-import Topbar from './components/layout/Topbar';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Sidebar from "./components/layout/Sidebar";
+import Topbar from "./components/layout/Topbar";
 
 // Auth / public pages
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 // Kitchen pages
-import Dashboard from './pages/Dashboard';
-import Analytics from './pages/Analytics';
-import Inventory from './pages/Inventory';
-import Sensors from './pages/Sensors';
-import WeighingScale from './pages/WeighingScale';
-import SurplusDetection from './pages/SurplusDetection';
-import SurplusMarketplace from './pages/SurplusMarketplace';
-import MLIntelligence from './pages/MLIntelligence';
-import Redistribution from './pages/Redistribution';
-import Feedback from './pages/Feedback';
-import Reports from './pages/Reports';
-import Settings from './pages/Settings';
+import Dashboard from "./pages/Dashboard";
+import Analytics from "./pages/Analytics";
+import Inventory from "./pages/Inventory";
+import Sensors from "./pages/Sensors";
+import WeighingScale from "./pages/WeighingScale";
+import SurplusDetection from "./pages/SurplusDetection";
+import SurplusMarketplace from "./pages/SurplusMarketplace";
+import MLIntelligence from "./pages/MLIntelligence";
+import Redistribution from "./pages/Redistribution";
+import Feedback from "./pages/Feedback";
+import Reports from "./pages/Reports";
+import Settings from "./pages/Settings";
 
 // Role dashboards
-import NGODashboard from './pages/NGODashboard';
-import RiderDashboard from './pages/RiderDashboard';
+import NGODashboard from "./pages/NGODashboard";
+import RiderDashboard from "./pages/RiderDashboard";
 
 // Helper — returns home path for each role
 const getRoleDashboard = (role) => {
-  if (role === 'ngo') return '/ngo-dashboard';
-  if (role === 'agent') return '/rider-dashboard';
-  return '/dashboard';
+  if (role === "ngo") return "/ngo-dashboard";
+  if (role === "agent") return "/rider-dashboard";
+  return "/kitchen-dashboard";
 };
 
 // Authenticated app shell (sidebar + topbar + outlet)
@@ -50,7 +50,10 @@ function AppLayout() {
             <Route path="/sensors" element={<Sensors />} />
             <Route path="/weighing-scale" element={<WeighingScale />} />
             <Route path="/surplus-detection" element={<SurplusDetection />} />
-            <Route path="/surplus-marketplace" element={<SurplusMarketplace />} />
+            <Route
+              path="/surplus-marketplace"
+              element={<SurplusMarketplace />}
+            />
             <Route path="/ml-intelligence" element={<MLIntelligence />} />
             <Route path="/redistribution" element={<Redistribution />} />
             <Route path="/feedback" element={<Feedback />} />
@@ -78,7 +81,8 @@ function RoleRedirect() {
 function PublicRoute({ children }) {
   const { isAuthenticated, loading, user } = useAuth();
   if (loading) return null;
-  if (isAuthenticated) return <Navigate to={getRoleDashboard(user?.role)} replace />;
+  if (isAuthenticated)
+    return <Navigate to={getRoleDashboard(user?.role)} replace />;
   return children;
 }
 
@@ -90,24 +94,33 @@ export default function App() {
       <AuthProvider>
         <Routes>
           {/* Public landing page */}
-          <Route path="/" element={
-            <PublicRoute>
-              <Landing />
-            </PublicRoute>
-          } />
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Landing />
+              </PublicRoute>
+            }
+          />
           {/* Auth pages */}
-          <Route path="/login" element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          } />
-          <Route path="/signup" element={
-            <PublicRoute>
-              <Signup />
-            </PublicRoute>
-          } />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
           {/* All authenticated pages under AppLayout */}
-          <Route >
+          <Route>
             <Route path="/*" element={<AppLayout />} />
           </Route>
         </Routes>

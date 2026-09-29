@@ -33,4 +33,33 @@ router.post("/", protect, async (req, res) => {
   }
 });
 
+
+router.get("/", protect, async (req, res) => {
+  try {
+    const profile = await KitchenProfile.findOne({
+      user: req.user.userId,
+    });
+
+    if (!profile) {
+      return res.status(404).json({
+        success: false,
+        message: "Kitchen profile not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      profile,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch kitchen profile",
+    });
+  }
+});
+
+
 module.exports = router;
